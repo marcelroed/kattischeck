@@ -27,6 +27,8 @@ def kattis_check(problem_names):
                 print(Fore.WHITE + sample_name)
                 sample_input, sample_output = [text_from_file(i) for i in [sample_input, sample_output]]
                 local_output = run_script(implementation, sample_input)
+                if local_output is None:
+                    local_output = ''
                 correct = compare(local_output, sample_output)
                 if correct:
                     print(Fore.YELLOW, end='')

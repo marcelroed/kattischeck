@@ -5,12 +5,11 @@ from os import listdir
 
 def run_script(script_path, input_str):
     file_ext = script_path.suffix
-    if file_ext == '.py':
-        return run_python(script_path, input_str)
-    elif file_ext == '.cpp':
-        return run_cpp(script_path, input_str)
+    script_runner = script_types.get(file_ext, None)
+    if script_runner is None:
+        raise ValueError('Not a valid filetype: ' + '"' + file_ext + '"')
     else:
-        return
+        return script_runner(script_path, input_str)
 
 
 def run_python(script_path, input_str):
@@ -47,5 +46,13 @@ def script_paths(root, problem_names):
     for problem_name in problem_names:
         for filename in dir_files:
             if problem_name in filename:
-                problem_files[problem_name] = problem_files.get(problem_name, []) + [root / filename]
+                problem_path = root / filename
+                if problem_path.suffix in script_types.keys():
+                    problem_files[problem_name] = problem_files.get(problem_name, []) + [problem_path]
     return problem_files
+
+
+script_types = {
+    '.py': run_python,
+    'cpp': run_cpp
+}
