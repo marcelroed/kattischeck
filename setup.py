@@ -34,7 +34,8 @@ setup(
     platforms=["Windows"],
     packages=find_packages(),
     install_requires=[
-        'urllib3>=1.24.1'
+        'urllib3>=1.24.1',
+        'colorama>=0.4.1'
     ],
     entry_points={
         "console_scripts": [
