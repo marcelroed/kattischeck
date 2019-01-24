@@ -15,5 +15,5 @@ install:
   - pip install -e .
 
 script:
-  - flake8 kattischeck tests
+#  - flake8 kattischeck tests
   - pytest -v tests
