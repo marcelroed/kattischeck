@@ -4,15 +4,26 @@ from kattischeck.kattis_check import kattis_check
 from kattischeck.compare_output import compare
 from pathlib import Path
 
+def is_tool(name):
+            """Check whether `name` is on PATH and marked as executable."""
+            # from whichcraft import which
+            from shutil import which
+
+            return which(name) is not None
+
 
 class TestRunScript:
     def test_run_python(self):
+        if not is_tool('python'):
+            return
         script_path = Path() / 'aaah.py'
         result = run_script(script_path, 'aaah\naah')
         print(result)
         assert compare(result, 'go\n')
 
     def test_run_cpp(self):
+        if not is_tool('g++'):
+            return
         script_path = Path() / 'testproblem.cpp'
         result = run_script(script_path, '1 4')
         compare(result, '5')
