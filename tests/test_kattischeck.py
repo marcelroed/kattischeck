@@ -2,21 +2,22 @@ from kattischeck.fetch_data import get_zip_file, unzip
 from kattischeck.run_script import run_script, script_paths
 from kattischeck.kattis_check import kattis_check
 from kattischeck.compare_output import compare
+from os import chdir
 from pathlib import Path
 
-def is_tool(name):
-            """Check whether `name` is on PATH and marked as executable."""
-            # from whichcraft import which
-            from shutil import which
 
-            return which(name) is not None
+def is_tool(name):
+    """Check whether `name` is on PATH and marked as executable."""
+    # from whichcraft import which
+    from shutil import which
+    return which(name) is not None
 
 
 class TestRunScript:
     def test_run_python(self):
         if not is_tool('python'):
             return
-        script_path = Path() / 'aaah.py'
+        script_path = Path() / 'tests' / 'aaah.py'
         result = run_script(script_path, 'aaah\naah')
         print(result)
         assert compare(result, 'go\n')
@@ -24,17 +25,18 @@ class TestRunScript:
     def test_run_cpp(self):
         if not is_tool('g++'):
             return
-        script_path = Path() / 'testproblem.cpp'
+        script_path = Path() / 'tests' / 'testproblem.cpp'
+        print(str(script_path.resolve()))
         result = run_script(script_path, '1 4')
         compare(result, '5')
 
     def test_find_paths(self):
-        root = Path()
+        root = Path() / 'tests'
         paths = script_paths(root, ['aaah', '10typesofpeople', 'testproblem'])
         print(paths)
 
     def test_run_both(self):
-        root = Path()
+        root = Path() / 'tests'
         problem_name = 'testproblem'
         paths = script_paths(root, [problem_name])
         filenames = paths.get(problem_name, [])
@@ -57,4 +59,6 @@ class TestFetchData:
 class TestKattisAutotest:
     def test_all(self):
         problem_names = ['doorman']
+        chdir('tests')
         results = kattis_check(problem_names)
+        chdir('..')
