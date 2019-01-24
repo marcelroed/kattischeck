@@ -42,7 +42,8 @@ def script_paths(root, problem_names):
     :return:
     """
     problem_files = {}
-    dir_files = listdir(root)
+    p = root.glob('**/*')
+    dir_files = [str(x) for x in p if x.is_file()]
     for problem_name in problem_names:
         for filename in dir_files:
             if problem_name in filename:
