@@ -16,7 +16,7 @@ def kattis_check(problem_names):
     init(convert=True)
     print(Style.BRIGHT, end='')
     # For every problem
-    implementations = script_paths(Path(), problem_names)
+    implementations = script_paths(Path.cwd(), problem_names)
     for problem_name in problem_names:
         unzipped = get_unzipped_file('https://open.kattis.com/problems/' + problem_name + '/file/statement/samples.zip')
         samples = split_samples(unzipped)
