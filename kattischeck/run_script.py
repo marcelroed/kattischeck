@@ -54,5 +54,5 @@ def script_paths(root, problem_names):
 
 script_types = {
     '.py': run_python,
-    'cpp': run_cpp
+    '.cpp': run_cpp
 }
