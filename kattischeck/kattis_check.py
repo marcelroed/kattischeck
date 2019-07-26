@@ -13,7 +13,7 @@ def kattis_check(problem_names):
     :param problem_names: A list of strings of problem names.
     :return:
     """
-    init(convert=True)
+    init()
     print(Style.BRIGHT, end='')
     # For every problem
     implementations = script_paths(Path.cwd(), problem_names)
