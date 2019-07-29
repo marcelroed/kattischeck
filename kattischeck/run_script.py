@@ -23,7 +23,8 @@ def run_cpp(cpp_path, input_str):
     # Compile using gcc
     absolute_path = cpp_path.resolve()
     try:
-        check_output(['g++', str(absolute_path), '-o', str(cpp_path.parent / 'problem.exe')])
+        # Match Kattis configuration
+        check_output(['g++', str(absolute_path), '-O2', '--std=gnu++17' '-o', str(cpp_path.parent / 'problem.exe')])
     except CalledProcessError as e:
         raise ValueError(e.output)
     # Run binary with parameters
