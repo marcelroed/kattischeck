@@ -15,9 +15,14 @@ def kattis_check(problem_names):
     """
     init()
     print(Style.BRIGHT, end='')
+
+    # Remove file extension if present
+    problem_names = [''.join(pname.split('.')[:-1]) if len(pname.split('.')) > 1 else pname for pname in problem_names]
+
     # For every problem
     implementations = script_paths(Path.cwd(), problem_names)
     for problem_name in problem_names:
+
         unzipped = get_unzipped_file('https://open.kattis.com/problems/' + problem_name + '/file/statement/samples.zip')
         samples = split_samples(unzipped)
         for implementation in sorted(implementations[problem_name]):
